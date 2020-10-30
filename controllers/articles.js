@@ -32,8 +32,10 @@ router.get('/new', (req, res) => {
 router.get('/:id', (req, res) => {
   db.article.findOne({
     where: { id: req.params.id },
-    include: [db.author]
+    include: [db.author],
+    
   })
+  
   .then((article) => {
     if (!article) throw Error()
     console.log(article.author)
@@ -44,5 +46,28 @@ router.get('/:id', (req, res) => {
     res.status(400).render('main/404')
   })
 })
+// Add the ability to view comments on GET /articles/:id.
+// See the example above on how to include the comments, 
+// then use EJS to render each comment's information on the page.
+// Make sure you have a comment 
+// in the database you can use to verify this functionality.
+
+// POST /articles - create a new post
+// POST /articles - create a new post
+router.post('/:id', (req, res) => {
+  db.comment.create({
+   
+  content: (req.body.name),
+  
+
+  })
+  .then((post) => {
+    res.redirect('/')
+  })
+  .catch((error) => {
+    res.status(400).render('main/404')
+  })
+})
+
 
 module.exports = router
