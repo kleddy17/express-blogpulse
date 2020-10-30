@@ -56,6 +56,7 @@ router.get('/:id', (req, res) => {
 // POST /articles - create a new post
 router.post('/:id', (req, res) => {
   db.comment.create({
+  name: req.body.name,
   content: req.body.content,
   })
   .then((post) => {

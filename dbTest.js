@@ -7,7 +7,7 @@ var db = require('./models')
 // })
 // .then(function(comment) {
 //   console.log(comment.get())
-// })
+// })\q
 
 
 
