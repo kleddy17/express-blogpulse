@@ -33,7 +33,6 @@ router.get('/:id', (req, res) => {
   db.article.findOne({
     where: { id: req.params.id },
     include: [db.author],
-    
   })
   
   .then((article) => {
@@ -67,11 +66,11 @@ router.post('/:id', (req, res) => {
   })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id/comments', (req, res) => {
   db.comment.findAll({
-    where: {id: req.params.id},
+    where: {artcleId: req.params.id},
     include: [db.comment],
-    
+  
   }).then((comment) => {
     res.render('articles/comments', {comment: comment})
   }).catch((error) => {
