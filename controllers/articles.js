@@ -28,7 +28,7 @@ router.get('/new', (req, res) => {
   })
 })
 
-// GET /articles/:id - display a specific post and its author
+// GET /articles/:id - display a specific article and its comments
 router.get('/:id', (req, res) => {
   db.article.findOne({
     where: { id: req.params.id },
@@ -52,8 +52,8 @@ router.get('/:id', (req, res) => {
 // Make sure you have a comment 
 // in the database you can use to verify this functionality.
 
-// POST /articles - create a new post
-// POST /articles - create a new post
+
+// POST /articles - create a new comment WORKS DONT TOUCH
 router.post('/:id', (req, res) => {
   db.comment.create({
   name: req.body.name,
@@ -66,6 +66,20 @@ router.post('/:id', (req, res) => {
     res.status(400).render('main/404')
   })
 })
+
+router.get('/:id', (req, res) => {
+  db.comment.findAll({
+    where: {id: req.params.id},
+    include: [db.comment],
+    
+  }).then((comment) => {
+    res.render('articles/comments', {comment: comment})
+  }).catch((error) => {
+    console.log(error)
+    res.status(400).render('main/404')
+  })
+})
+
 
 
 module.exports = router
