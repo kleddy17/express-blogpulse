@@ -68,7 +68,7 @@ router.post('/:id', (req, res) => {
 
 router.get('/:id/comments', (req, res) => {
   db.comment.findAll({
-    where: {artcleId: req.params.id},
+    where: {id: req.params.id},
     include: [db.comment],
   
   }).then((comment) => {
